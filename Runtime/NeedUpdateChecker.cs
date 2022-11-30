@@ -17,6 +17,9 @@
             string minimumVersion
         )
         {
+            if ( currentVersion == null ) return false;
+            if ( minimumVersion == null ) return false;
+
             return IsNeedUpdate
             (
                 currentVersion: int.Parse( currentVersion.Replace( ".", "" ) ),
