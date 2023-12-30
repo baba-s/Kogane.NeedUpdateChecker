@@ -1,4 +1,6 @@
-﻿namespace Kogane
+﻿using System;
+
+namespace Kogane
 {
     /// <summary>
     /// アップデートが必要かどうかを確認するためのクラス
@@ -17,14 +19,21 @@
             string minimumVersion
         )
         {
-            if ( currentVersion == null ) return false;
-            if ( minimumVersion == null ) return false;
+            if ( string.IsNullOrEmpty( currentVersion ) ) return false;
+            if ( string.IsNullOrEmpty( minimumVersion ) ) return false;
 
-            return IsNeedUpdate
-            (
-                currentVersion: int.Parse( currentVersion.Replace( ".", "" ) ),
-                minimumVersion: int.Parse( minimumVersion.Replace( ".", "" ) )
-            );
+            try
+            {
+                return IsNeedUpdate
+                (
+                    currentVersion: int.Parse( currentVersion.Replace( ".", "" ) ),
+                    minimumVersion: int.Parse( minimumVersion.Replace( ".", "" ) )
+                );
+            }
+            catch ( FormatException )
+            {
+                return false;
+            }
         }
 
         /// <summary>
